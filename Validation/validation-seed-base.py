@@ -70,7 +70,7 @@ def deanonymize_graph(G1, G2, seed_mapping, max_iterations=10, time_limit=60):
         
         # Get current mapped nodes (list to maintain consistent order)
         mapped_g1_nodes = list(mapping.keys())
-        
+
         # Calculate batch size - process at most 1000 nodes at a time to avoid memory issues
         batch_size = min(1000, len(unmapped_g1), len(unmapped_g2))
         
@@ -124,17 +124,21 @@ def deanonymize_graph(G1, G2, seed_mapping, max_iterations=10, time_limit=60):
                     best_score = score
                     best_match = node_g2
             
-            # Add the best match if found
-            if best_match is not None:
-                mapping[node_g1] = best_match
-                reverse_mapping[best_match] = node_g1
-                new_matches += 1
-                
-                # Remove matched nodes from unmapped lists
-                if node_g1 in unmapped_g1:
-                    unmapped_g1.remove(node_g1)
-                if best_match in unmapped_g2:
-                    unmapped_g2.remove(best_match)
+                # Add the best match if found
+                if best_match is not None:
+                    mapping[node_g1] = best_match
+                    revMatches = sum(1 for a, b in zip(sig2, sig1) if a == b and (a == 1 or b == 1))
+                    revTotal = sum(1 for a, b in zip(sig2, sig1) if a == 1 or b == 1)
+                    revScore = revMatches / revTotal if revTotal > 0 else 0
+                    if revScore > threshold:
+                        reverse_mapping[best_match] = node_g1
+                    new_matches += 1
+                    
+                    # Remove matched nodes from unmapped lists
+                    if node_g1 in unmapped_g1:
+                        unmapped_g1.remove(node_g1)
+                    if best_match in unmapped_g2:
+                        unmapped_g2.remove(best_match)
         
         print(f"  Added {new_matches} new mappings")
         print(f"  Total mappings: {len(mapping)}")
@@ -184,7 +188,7 @@ def main():
     print(f"G2: {len(G2.nodes())} nodes, {len(G2.edges())} edges")
     
     # Load the seed mapping
-    seed_mapping = load_seed_mapping("validation_seed_mapping.txt")
+    seed_mapping = load_seed_mapping("other_seed_mapping.txt")
     print(f"Loaded {len(seed_mapping)} seed mappings")
     
     # Perform de-anonymization with time limit

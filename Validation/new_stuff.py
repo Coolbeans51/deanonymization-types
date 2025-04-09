@@ -174,10 +174,10 @@ def save_mapping(mapping, output_file):
 
 def find_graph_files():
     """Find edgelist files in the current directory."""
-    files = sorted(glob.glob("seed_G*.edgelist"))
+    files = sorted(glob.glob("validation_G*.edgelist"))
 
     if len(files) < 2:
-        raise FileNotFoundError("Could not find at least two seed_G*.edgelist files in the current directory")
+        raise FileNotFoundError("Could not find at least two validation_G*.edgelist files in the current directory")
 
     return files[0], files[1]
 
@@ -191,7 +191,7 @@ def main():
         print(f"Error: {e}")
         return
 
-    seed_file = "seed_mapping.txt"
+    seed_file = "other_seed_mapping.txt"
     seeds = None
     if os.path.exists(seed_file):
         print(f"Found seed file: {seed_file}")
