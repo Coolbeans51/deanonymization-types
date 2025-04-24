@@ -84,7 +84,7 @@ def similarity_matrix(g1_features, g2_features):
     n2 = len(g2_nodes)
 
     batch_size = 1000
-    use_batching = n1 * n2 > 10000000
+    use_batching = n1 * n2 > 1000000
 
     if use_batching:
         print(f"Using batch processing for large similarity matrix ({n1}x{n2})...")
@@ -208,7 +208,7 @@ def main():
     print(f"Graph 1: {len(G1.nodes())} nodes, {len(G1.edges())} edges")
     print(f"Graph 2: {len(G2.nodes())} nodes, {len(G2.edges())} edges")
 
-    threshold = 100000
+    threshold = 10000
 
     print("Extracting node features...")
     feature_time = time.time()

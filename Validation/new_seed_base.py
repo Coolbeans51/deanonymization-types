@@ -208,7 +208,7 @@ def main():
     print(f"Graph 1: {len(G1.nodes())} nodes, {len(G1.edges())} edges")
     print(f"Graph 2: {len(G2.nodes())} nodes, {len(G2.edges())} edges")
 
-    threshold = 100000
+    threshold = 10000 # 100000 is good for accuracy
 
     print("Extracting node features...")
     feature_time = time.time()

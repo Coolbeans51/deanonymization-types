@@ -195,7 +195,7 @@ def main():
     
     # Determine max_nodes threshold based on graph sizes
     max_nodes = max(len(G1.nodes()), len(G2.nodes()))
-    threshold = 100000  # Threshold for simplified metrics
+    threshold = 10000  # Threshold for simplified metrics
     
     # Extract node features
     print("Extracting node features...")
