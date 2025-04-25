@@ -167,10 +167,10 @@ def match_nodes(g1_features, g2_features, seeds=None):
     return mapping
 
 def save_mapping(mapping, output_file):
-    """Save node mapping to file."""
+    """Save node mapping to file in sorted order by source node."""
     with open(output_file, 'w') as f:
-        for node1, node2 in mapping.items():
-            f.write(f"{node1} {node2}\n")
+        for node in sorted(mapping, key=lambda x: int(x)):
+            f.write(f"{node} {mapping[node]}\n")
 
 def find_graph_files():
     """Find edgelist files in the current directory."""

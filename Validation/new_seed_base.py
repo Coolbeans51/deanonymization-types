@@ -84,7 +84,7 @@ def similarity_matrix(g1_features, g2_features):
     n2 = len(g2_nodes)
 
     batch_size = 1000
-    use_batching = n1 * n2 > 10000000
+    use_batching = n1 * n2 > 1000000
 
     if use_batching:
         print(f"Using batch processing for large similarity matrix ({n1}x{n2})...")
